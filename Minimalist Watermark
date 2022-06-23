@@ -1,0 +1,27 @@
+local consolas = draw.CreateFont("Verdana", 16, 500) -- This is the font / text, the number 16 is how big it is, change it if you want.
+local current_fps = 0
+
+local function watermark()
+  draw.SetFont(consolas)
+  draw.Color(0, 0, 0, 0)
+
+  -- Update rate
+  if globals.FrameCount() % 2 == 0 then
+    current_fps = math.floor(1 / globals.FrameTime())
+    server_tick = math.floor(1 / globals.TickInterval())
+  end
+
+    -- Different colors when x-x FPS
+    if current_fps < 29 then draw.Color(255, 0, 0, 255) else
+    if current_fps < 59 then draw.Color(255, 255, 0, 255) else
+    if current_fps < 119 then draw.Color(0, 255, 0, 255) else
+    if current_fps > 120 then draw.Color (0, 255, 255, 255)
+            end
+        end
+    end
+end
+
+  draw.Text(5, 5, "[ lmaobox | FPS: " .. current_fps .. "| Ticks: " .. server_tick .. " ]") --
+end
+
+callbacks.Register("Draw", "draw", watermark)
